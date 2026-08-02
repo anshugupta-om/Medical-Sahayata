@@ -1,10 +1,11 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
+
 from app.core.config import settings
 from app.knowledge_base.embeddings import load_vector_store
 
 
-class MedicalRAG:
+class ReportSummarizer:
 
     def __init__(self, vector_store_path: str):
 
@@ -18,25 +19,30 @@ class MedicalRAG:
 
         self.prompt = ChatPromptTemplate.from_template(
             """
-You are Medical Sahayata, an AI healthcare assistant.
+You are an AI medical assistant.
 
-Answer ONLY using the provided report context.
+Use ONLY the provided report.
 
-If the answer is not available, reply:
+Generate a structured summary with the following headings:
 
-"I couldn't find this information in the uploaded medical report."
+1. Patient Information
+2. Hospital Information
+3. Diagnosis
+4. Chief Complaint
+5. Laboratory Results
+6. Prescribed Medicines
+7. Doctor's Advice
+8. Risk Level (Low / Medium / High)
+9. Follow-up Recommendation
 
 Context:
 {context}
-
-Question:
-{question}
 """
         )
 
-    def ask(self, question: str):
+    def summarize(self):
 
-        docs = self.vector_store.similarity_search(question, k=3)
+        docs = self.vector_store.similarity_search("", k=10)
 
         context = "\n\n".join(
             doc.page_content
@@ -47,8 +53,7 @@ Question:
 
         response = chain.invoke(
             {
-                "context": context,
-                "question": question
+                "context": context
             }
         )
 
