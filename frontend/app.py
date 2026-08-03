@@ -8,6 +8,8 @@ from upload import show_upload_page
 from chat import show_chat_page
 from history import show_history_page
 from report_details import show_report_details
+from register import show_register
+from login import show_login
 load_dotenv()
 
 BACKEND_URL = os.getenv("BACKEND_URL")
@@ -23,31 +25,20 @@ st.title("🏥 Medical Sahayata")
 # ------------------------
 # Login Section
 # ------------------------
+if "page" not in st.session_state:
+    st.session_state.page = "login"
 
 if "token" not in st.session_state:
 
-    st.subheader("Login")
+    login_tab, register_tab = st.tabs(
+        ["🔐 Login", "📝 Register"]
+    )
 
-    email = st.text_input("Email")
-    password = st.text_input("Password", type="password")
+    with login_tab:
+        show_login()
 
-    if st.button("Login"):
-
-        response = requests.post(
-            f"{BACKEND_URL}/api/v1/auth/login",
-            json={
-                "email": email,
-                "password": password
-            }
-        )
-
-        if response.status_code == 200:
-
-            st.session_state.token = response.json()["access_token"]
-            st.rerun()
-
-        else:
-            st.error("Invalid credentials")
+    with register_tab:
+        show_register()
 
 # ------------------------
 # Chat Section
@@ -78,40 +69,4 @@ else:
         st.header("Profile")
         st.info("Coming in next step...")
 
-    st.divider()
-
-    # Existing Chat
-    st.subheader("💬 Medical Consultation")
-
-    question = st.text_area("Ask your medical question:")
-
-    if st.button("Consult"):
-
-        headers = {
-            "Authorization": f"Bearer {st.session_state.token}"
-        }
-
-        response = requests.post(
-            f"{BACKEND_URL}/api/v1/medical/consult",
-            json={
-                "query": question
-            },
-            headers=headers
-        )
-
-        if response.status_code == 200:
-
-            st.subheader("Response")
-
-            st.write(
-                response.json()["response"]
-            )
-
-        else:
-
-            st.error(response.text)
-
-    if st.button("Logout"):
-
-        del st.session_state.token
-        st.rerun()
+    
