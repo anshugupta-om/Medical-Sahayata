@@ -16,11 +16,11 @@ BACKEND_URL = os.getenv("BACKEND_URL")
 
 st.set_page_config(
     page_title="Medical Sahayata",
-    page_icon="🏥",
+    page_icon="",
     layout="wide"
 )
 
-st.title("🏥 Medical Sahayata")
+st.title("Medical Sahayata")
 
 # ------------------------
 # Login Section
@@ -31,7 +31,7 @@ if "page" not in st.session_state:
 if "token" not in st.session_state:
 
     login_tab, register_tab = st.tabs(
-        ["🔐 Login", "📝 Register"]
+        [" Login", " Register"]
     )
 
     with login_tab:
@@ -40,32 +40,30 @@ if "token" not in st.session_state:
     with register_tab:
         show_register()
 
-# ------------------------
-# Chat Section
-# ------------------------
+
 
 else:
 
     # Show Dashboard
     page = sidebar()
 
-    if page == "🏠 Dashboard":
+    if page == "Dashboard":
         show_dashboard()
 
-    elif page == "📤 Upload Report":
+    elif page == "Upload Report":
         show_upload_page()
 
-    elif page == "💬 AI Chat":
+    elif page == "AI Chat":
         show_chat_page()
 
-    elif page == "📄 Report History":
+    elif page == "Report History":
 
         if "selected_report" in st.session_state:
             show_report_details()
         else:
             show_history_page()
 
-    elif page == "👤 Profile":
+    elif page == "Profile":
         st.header("Profile")
         st.info("Coming in next step...")
 

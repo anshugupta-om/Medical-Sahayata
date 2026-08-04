@@ -6,7 +6,7 @@ from config import BACKEND_URL
 
 def show_upload_page():
 
-    st.title("📤 Upload Medical Report")
+    st.title("Upload Medical Report")
 
     uploaded_file = st.file_uploader(
         "Choose a PDF report",
@@ -42,7 +42,7 @@ def show_upload_page():
 
         if response.status_code == 200:
 
-            st.success("✅ Report uploaded successfully!")
+            st.success("Report uploaded successfully!")
 
             data = response.json()
 

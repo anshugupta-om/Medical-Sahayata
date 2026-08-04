@@ -6,7 +6,7 @@ from config import BACKEND_URL
 
 def show_chat_page():
 
-    st.title("💬 AI Medical Chat")
+    st.title(" AI Medical Chat")
 
     if "messages" not in st.session_state:
         st.session_state.messages = []
@@ -44,7 +44,8 @@ def show_chat_page():
         f"{BACKEND_URL}/api/v1/medical/consult",
         headers=headers,
         json={
-            "query": prompt
+            "query": prompt,
+            "language": st.session_state.language
         }
     )
 

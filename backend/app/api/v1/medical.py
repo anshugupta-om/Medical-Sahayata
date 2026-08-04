@@ -37,8 +37,14 @@ def consult(
     rag = MedicalRAG(
         report.vector_store_path
     )
+    
+    
+    print("Language received:", request.language)
 
-    answer = rag.ask(request.query)
+    answer = rag.ask(
+    request.query,
+    request.language
+   )
     
     create_chat(
     db=db,

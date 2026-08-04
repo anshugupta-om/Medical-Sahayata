@@ -6,7 +6,7 @@ from config import BACKEND_URL
 
 def show_register():
 
-    st.title("📝 Create Account")
+    st.title(" Create Account")
 
     name = st.text_input(
         "Full Name",

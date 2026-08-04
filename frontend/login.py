@@ -6,7 +6,7 @@ from config import BACKEND_URL
 
 def show_login():
 
-    st.subheader("🔐 Login")
+    st.subheader(" Login")
 
     email = st.text_input(
         "Email",

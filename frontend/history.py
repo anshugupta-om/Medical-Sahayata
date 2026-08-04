@@ -6,7 +6,7 @@ from config import BACKEND_URL
 
 def show_history_page():
 
-    st.title("📄 Report History")
+    st.title(" Report History")
 
     headers = {
         "Authorization": f"Bearer {st.session_state.token}"

@@ -1,0 +1,17 @@
+SUPPORTED_LANGUAGES = {
+    "English": "en",
+    "Hindi": "hi",
+    "Bengali": "bn",
+    "Telugu": "te",
+    "Marathi": "mr",
+    "Tamil": "ta",
+    "Gujarati": "gu",
+    "Kannada": "kn",
+    "Malayalam": "ml",
+    "Punjabi": "pa",
+    "Odia": "or",
+    "Assamese": "as",
+    "Urdu": "ur",
+    "Nepali": "ne",
+    "Sanskrit": "sa",
+}

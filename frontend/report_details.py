@@ -28,7 +28,7 @@ def show_report_details():
     report = response.json()
     data = report["structured_data"]
 
-    st.title("📄 Medical Report Details")
+    st.title("Medical Report Details")
 
     st.subheader(report["filename"])
 
@@ -36,7 +36,7 @@ def show_report_details():
 
     st.divider()
 
-    st.subheader("👤 Patient")
+    st.subheader("Patient")
 
     st.write(f"**Name:** {data.get('patient_name', 'N/A')}")
     st.write(f"**Age:** {data.get('age', 'N/A')}")
@@ -44,7 +44,7 @@ def show_report_details():
 
     st.divider()
 
-    st.subheader("🏥 Hospital")
+    st.subheader("Hospital")
 
     st.write(data.get("hospital", "N/A"))
 
@@ -52,20 +52,20 @@ def show_report_details():
 
     st.divider()
 
-    st.subheader("🩺 Diagnosis")
+    st.subheader("Diagnosis")
 
     st.success(data.get("diagnosis", "N/A"))
 
     st.divider()
 
-    st.subheader("💊 Medicines")
+    st.subheader("Medicines")
 
     for medicine in data.get("medicines", []):
         st.write(f"✔ {medicine}")
 
     st.divider()
 
-    st.subheader("🧪 Laboratory Results")
+    st.subheader("Laboratory Results")
 
     lab_results = data.get("laboratory_results", {})
 
@@ -79,7 +79,7 @@ def show_report_details():
 
     st.divider()
 
-    st.subheader("📄 AI Summary")
+    st.subheader("AI Summary")
 
     st.write(report["summary"])
 

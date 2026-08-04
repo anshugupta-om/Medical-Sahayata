@@ -10,7 +10,7 @@ BACKEND_URL = os.getenv("BACKEND_URL")
 
 def show_dashboard():
 
-    st.title("🏥 Medical Sahayata Dashboard")
+    st.title("Medical Sahayata Dashboard")
 
     headers = {
         "Authorization": f"Bearer {st.session_state.token}"
@@ -29,13 +29,13 @@ def show_dashboard():
 
     data = report["structured_data"]
 
-    st.subheader("📄 Latest Report")
+    st.subheader("Latest Report")
 
     st.write(report["original_filename"])
 
     st.divider()
 
-    st.subheader("👤 Patient Information")
+    st.subheader("Patient Information")
 
     col1, col2 = st.columns(2)
 
@@ -56,19 +56,19 @@ def show_dashboard():
 
     st.divider()
 
-    st.subheader("🏥 Hospital")
+    st.subheader("Hospital")
 
     st.write(data.get("hospital", "N/A"))
 
     st.divider()
 
-    st.subheader("🩺 Diagnosis")
+    st.subheader("Diagnosis")
 
     st.success(data.get("diagnosis", "N/A"))
 
     st.divider()
 
-    st.subheader("💊 Medicines")
+    st.subheader("Medicines")
 
     medicines = data.get("medicines", [])
 
@@ -98,6 +98,6 @@ def show_dashboard():
 
     st.divider()
 
-    st.subheader("📄 AI Summary")
+    st.subheader("AI Summary")
 
     st.write(report["summary"])

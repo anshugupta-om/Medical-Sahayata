@@ -1,5 +1,6 @@
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
+
 from app.core.config import settings
 from app.knowledge_base.embeddings import load_vector_store
 
@@ -19,6 +20,17 @@ class MedicalRAG:
         self.prompt = ChatPromptTemplate.from_template(
             """
 You are Medical Sahayata, an intelligent AI healthcare assistant.
+
+The user has selected the following language:
+
+{language}
+
+IMPORTANT LANGUAGE RULES:
+
+1. Respond ONLY in {language}.
+2. If a medical term has no natural translation, keep that medical term in English.
+3. Never switch to English unless the user explicitly asks.
+4. Use simple language that patients can easily understand.
 
 Your goal is to help users understand their medical reports and answer healthcare-related questions safely and accurately.
 
@@ -46,7 +58,13 @@ Priority Rules:
    - Recommend prescription medications or dosages.
    - Replace professional medical advice.
 
-6. If symptoms suggest a medical emergency (such as chest pain, difficulty breathing, stroke symptoms, severe bleeding, unconsciousness, seizures, or suicidal thoughts), immediately advise the user to seek emergency medical care.
+6. If symptoms suggest a medical emergency
+   (such as chest pain, difficulty breathing,
+   stroke symptoms, severe bleeding,
+   unconsciousness, seizures,
+   or suicidal thoughts),
+   immediately advise the user
+   to seek emergency medical care.
 
 7. Structure every response as follows whenever applicable:
 
@@ -62,8 +80,8 @@ Priority Rules:
 - Explain the topic in simple language.
 
 **Recommendations**
-- Provide safe lifestyle or preventive advice when appropriate.
-- Suggest consulting a healthcare professional if the issue requires diagnosis or treatment.
+- Provide safe lifestyle or preventive advice.
+- Suggest consulting a healthcare professional when appropriate.
 
 Report Context:
 {context}
@@ -73,9 +91,12 @@ Question:
 """
         )
 
-    def ask(self, question: str):
+    def ask(self, question: str, language: str = "English"):
 
-        docs = self.vector_store.similarity_search(question, k=3)
+        docs = self.vector_store.similarity_search(
+            question,
+            k=3
+        )
 
         context = "\n\n".join(
             doc.page_content
@@ -87,7 +108,8 @@ Question:
         response = chain.invoke(
             {
                 "context": context,
-                "question": question
+                "question": question,
+                "language": language
             }
         )
 
